@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="title">ToDo App</h2>
+        <div class="input">
+            <input type="text" placeholder="Enter your Todos">
+            <button>Add Todo</button>
+        </div>
+        <div class="todo-list">
+            <ul></ul>
+        </div>
+    </div>
+    <script>
+        ulRef = document.querySelector('.todo-list')
+        function renderTodo(datas){
+            datas.forEach((item) => {
+                const newLi = document.createElement("li");
+                newLi.innerHTML =`
+                <span class="item">${item.todo}</span>
+                <input type="checkbox" ${item.completed ? "checked":""}/>
+                `
+                ulRef.appendChild(newLi)
+            })
+        }
+        function fetchData(){
+            fetch('https://dummyjson.com/todos')
+            .then(res => res.json())
+            .then(data => renderTodo(data.todos));
+        }
+        fetchData();
+    </script>
+</body>
+</html>
